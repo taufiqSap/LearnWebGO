@@ -1,11 +1,53 @@
-package main 
+package main
 
-import "fmt"
-import "net/http"
-import "html/template"
-import "path"
+import (
+	"fmt"
+	"html/template"
+	"net/http"
+)
 
-func main(){
+type M map[string]interface{}
+
+func main() {
+
+	http.HandleFunc("/index", func(w http.ResponseWriter, r *http.Request) {
+		var data = M{"name": "Taufiq Sap"}
+		var tmpl = template.Must(template.ParseFiles(
+			"views/index.html",
+			"views/_header.html",
+			"views/_message.html",
+		))
+
+		err := tmpl.ExecuteTemplate(w, "index", data)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+	})
+
+	http.HandleFunc("/about", func(w http.ResponseWriter, r *http.Request) {
+		var data = M{"name": "Taufiq Sap"}
+		var tmpl = template.Must(template.ParseFiles(
+			"views/about.html",
+			"views/_header.html",
+			"views/_message.html",
+		))
+
+		err := tmpl.ExecuteTemplate(w, "about", data)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+	})
+
+	var address = "localhost:9000"
+	fmt.Printf("Starting server at http://%s/\n", address)
+	err := http.ListenAndServe(address, nil)
+	if err != nil {
+		fmt.Println("Error starting server:", err)
+	}
+}
+
+
+/*func main(){
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request){
 		var filepath = path.Join("views", "index.html")
 		var tmpl, err = template.ParseFiles(filepath)
@@ -33,7 +75,7 @@ func main(){
 	if( err != nil){
 		fmt.Println("Error starting server:", err)
 	}
-}
+} */
 
 
  /* func handlerIndex(w http.ResponseWriter, r *http.Request) {
