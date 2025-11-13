@@ -42,6 +42,12 @@ func main(){
 		w.Write([]byte("hello again"))
 	})
 
-	fmt.Printf("Server dijalankan di localhost:9000\n")
-	http.ListenAndServe("localhost:9000", nil)
+	http.Handle("/static/",http.StripPrefix("/static/", http.FileServer(http.Dir("assets"))))
+
+	var address = "localhost:9000"
+	fmt.Printf("starting server at %s\n", address)
+	err:= http.ListenAndServe(address, nil)
+	if err != nil{
+		fmt.Println("Error starting server:", err)
+	}
 } 
