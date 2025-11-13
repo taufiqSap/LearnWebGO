@@ -3,7 +3,7 @@ package main
 import "fmt"
 import "net/http"
 
- func handlerIndex(w http.ResponseWriter, r *http.Request) {
+ /* func handlerIndex(w http.ResponseWriter, r *http.Request) {
 	var message = "welcome"
 	w.Write([]byte(message))
 }
@@ -27,9 +27,9 @@ func main(){
 	if err != nil{
 		fmt.Println("Error starting server:", err)
 	}
-} 
+} */
 
-/* func main(){
+ func main(){
 	handlerIndex := func(w http.ResponseWriter, r *http.Request){
 		var message = "Hello"
 		w.Write([]byte(message))
@@ -44,4 +44,4 @@ func main(){
 
 	fmt.Printf("Server dijalankan di localhost:9000\n")
 	http.ListenAndServe("localhost:9000", nil)
-} */
+} 
